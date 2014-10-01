@@ -2,7 +2,7 @@ package net.bmjames.opts.helpdoc
 
 import net.bmjames.opts.internal.words
 
-import scalaz.{Applicative, Monoid, MonadPlus}
+import scalaz._
 import scalaz.std.list._
 import scalaz.std.option._
 
@@ -19,13 +19,16 @@ final case class Chunk[A](run: Option[A]) {
 
   def isEmpty: Boolean = run.isEmpty
 
-  def <>(that: => Chunk[A])(implicit A: Monoid[A]): Chunk[A] =
+  def <>(that: => Chunk[A])(implicit A: Semigroup[A]): Chunk[A] =
     Chunk.chunked[A]((f1, f2) => A.append(f1, f2))(this, that)
 }
 
 object Chunk {
 
   def empty[A]: Chunk[A] = Chunk(None)
+
+  implicit def chunkEqual[A: Equal]: Equal[Chunk[A]] =
+    Equal.equalBy(_.run)
 
   implicit val chunkMonadPlus: MonadPlus[Chunk] =
     new MonadPlus[Chunk] {

@@ -1,10 +1,7 @@
 package net.bmjames.opts.types
 
-import scalaz.{Functor, MonadPlus, \/}
+import scalaz.Functor
 import scalaz.syntax.applicative._
-import scalaz.std.option._
-
-import CReader._
 
 sealed trait OptReader[A] {
 

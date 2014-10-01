@@ -9,7 +9,6 @@ import scalaz._
 import scalaz.syntax.semigroup._
 import scalaz.syntax.monadPlus._
 import scalaz.syntax.foldable._
-import scalaz.std.option._
 import scalaz.std.list._
 
 import org.kiama.output.PrettyPrinter.Doc
